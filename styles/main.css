@@ -1,0 +1,247 @@
+/* custom property */
+:root {
+	--accent-color: #800000;
+	--gradient-color: #f6bb73;
+	--light_menu: white;
+	--mid_menu: antiquewhite;
+	--dark_menu: black;
+}
+
+/* reset */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* default styles */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: calc(15px + .2vw);
+	width: min(80%, 1024px);
+	line-height: 1.5;
+	margin: auto;
+	border: 2px solid var(--accent-color);
+}
+h1, h2, h3, p, ul {
+	padding: .25em 0;
+}
+a:hover, a:focus{
+	font-style: italic;
+	color: var(--accent-color);
+}
+h1 {
+	font-size: 150%;
+}
+h2 {
+	font-size: 130%;
+	color: var(--accent-color);
+}
+h3 {
+	font-size: 105%;
+}
+ul {
+	margin-left: 2em;
+}
+
+/* mobile-first header */
+header {
+	line-height: 1.2;
+	border-bottom: 2px solid var(--accent-color);
+	background-image: linear-gradient(30deg, var(--gradient-color) 0%, white 30%, white 65%, var(--gradient-color) 100%);
+	text-align: center;
+	& h2 {
+		font-size: 175%;
+		padding: .5em 0 0 0;
+	}
+	& h3 {
+		font-size: 130%;
+		font-style: italic;
+		padding-bottom: 1em;
+	}
+	& img {
+		display: none;
+	}
+}
+
+/* mobile-first layout */
+main {
+	display: flex;
+	flex-direction: column-reverse;
+	padding: 0 1em 1em;
+	& blockquote {
+		font-style: italic;
+		padding-left: 1em;
+	}
+	& h3 + img {
+		width: clamp(40px, 50%, 75px);
+		border: 4px double var(--accent-color);
+		border-radius: 10px;
+	}
+}
+
+section {
+	padding-left: .5em;
+	border-bottom: 2px solid var(--accent-color);
+	& img {
+		width: clamp(100px, 50%, 250px);
+		float: right;
+		margin: 0 1em .25em;
+	}
+}
+
+aside {
+	padding-right: .5em;
+}
+
+footer {
+	background-color: var(--accent-color);
+	& p {
+		text-align: center;
+		color: white;
+		padding: 1em 0;
+	}
+}
+
+.featured {
+	border-top: 2px solid var(--accent-color);
+	border-bottom: 2px solid var(--accent-color);
+	padding: .5em 0 1em;
+}
+.speaker h1 { color: var(--accent-color); }
+.speaker h2 { color: black; }
+.speaker p { padding: .5em 0; }
+.large { font-size: 125%; }
+
+/* mobile-first navbar */
+.navbar {
+	clear: left;
+	background-color: var(--accent-color);
+	position: relative;
+	& a {
+		display: block;
+		padding: 1em;
+		text-decoration: none;
+		margin: 0 2px 2px 0;
+	}
+	& a:link, a:visited { 
+		color: var(--light_menu);
+	}
+	& a:hover, a:focus, a.current {
+		background-color: var(--mid_menu);
+		color: var(--dark_menu);
+	}
+	& ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+}
+
+.menu {
+	position: absolute;
+	left: 0;
+	background-color: var(--accent-color);
+	width: 40%;
+	display: none;
+	z-index: 999;
+	& li { 
+		text-align: center;
+	}
+}
+
+.menu-btn {
+	display: block;
+	padding: 0.5em 1em;
+	color: white;
+	font-size: 1.5em;
+	cursor: pointer;
+}
+.menu-btn::before {
+	content: "\2261"; 
+}
+.nav-toggle {
+	display: none;
+}
+.nav-toggle:checked ~ .menu-btn::before {
+	content: "\2715";
+}
+.nav-toggle:checked ~ .menu {
+	display: block;
+}
+
+.submenu {
+	position: relative;
+}
+.submenu > a::after {
+	content: " \25B6";
+}
+
+.dropdown {
+	position: absolute;
+	top: 0;
+	left: 100%;
+	width: 100%;
+	background-color: var(--accent-color);
+	color: var(--light_menu);
+	display: none;
+	& > li a { margin: 2px; }
+}
+
+.submenu:hover > .dropdown {
+	display: block;
+}
+
+
+/* Media queries for larger screens */
+@media (min-width: 800px) {
+	header {
+		text-align: left;
+		& img {
+			display: block;
+			width: clamp(40px, 15%, 80px);
+			float: left;
+			margin: .75em 1em;
+		}
+	}
+
+	main {
+		flex-direction: row;
+	}
+	
+	section {
+		flex-basis: 75%;
+		border-bottom: none;
+	}
+	
+	aside {
+		flex-basis: 25%;
+	}
+
+	.menu-btn {
+		display: none;
+	}
+	
+	.menu {
+		position: relative;
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		& li { flex-basis: 20%; }
+	}
+	
+	.navbar a { margin: 0 1px 2px; }
+	.menu > li:first-child a { margin-left: 0; }
+	.menu > li:last-child a { margin-right: 0; }
+	
+	.submenu > a::after {
+		content: " \25BC";
+	}
+	
+	.dropdown {
+		top: auto;
+		left: 0;
+		right: 0;
+		& > li a { margin: 0 2px 2px; }
+	}
+}
